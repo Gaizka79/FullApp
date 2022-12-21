@@ -1,0 +1,18 @@
+@import './utils/variables.scss';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+};
+
+@import './components/header';
+@import './components/nav';
+@import './components/main';
+@import './components/home';
+@import './components/user';
+
+@import './components/footer';
+
+//Para borrar
+@import './components/app';

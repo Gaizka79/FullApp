@@ -1,14 +1,21 @@
+import './styles/styles.scss';
+import { BrowserRouter } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+
 import React from 'react';
 
+//import Header from './components/Header';
+import Main from './components/Main';
+import Footer from './components/Footer';
+
 import logo from './logo.svg';
-import './App.css';
+
 import axios from 'axios';
 
 function App() {
-  const [data, setData] = React.useState(null);
+  const [data, setData] = useState(null);
 
-  React.useEffect(() => {
-    console.log("en el useffect");
+  useEffect(() => {
     axios.get("/users")
       .then((res)=> {
         console.log(res.data)
@@ -17,20 +24,23 @@ function App() {
       .catch((err) => {
         console.log(err);
       })
-      .finally(() => {
-        console.log("Final")
-      })
   },[data]);
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          {!data ? "Loading..." : data}
-        </p>
+      
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <p>
+            {!data ? "Loading..." : data}
+          </p>
         
-      </header>
+        </header>
+      {/* <Header/> */}
+      <BrowserRouter>
+        <Main/>
+      </BrowserRouter>
+      <Footer/>
     </div>
   );
 }
