@@ -1,6 +1,6 @@
 import './styles/styles.scss';
 import { BrowserRouter } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+//import { useState, useEffect } from 'react';
 
 import React from 'react';
 
@@ -8,9 +8,9 @@ import Header from './components/Header';
 import Main from './components/Main';
 import Footer from './components/Footer';
 
-import logo from './logo.svg';
+//import logo from './logo.svg';
 
-import axios from 'axios';
+//import axios from 'axios';
 
 function App() {
   /* const [data, setData] = useState(null);
