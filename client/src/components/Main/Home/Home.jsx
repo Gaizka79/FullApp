@@ -27,8 +27,7 @@ function Home () {
 
   return (
     <div className="home">
-      {paintUsers()}
-      {/* {!data ? <p>"Loading..."</p> : data.map((temp,i) => <p value={temp.nombre} key={i}/>)} */}
+      {!data ? <p>"Loading..."</p> : paintUsers()}
     </div>
   )
 }
