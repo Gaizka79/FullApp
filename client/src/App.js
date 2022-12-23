@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 
 import React from 'react';
 
-//import Header from './components/Header';
+import Header from './components/Header';
 import Main from './components/Main';
 import Footer from './components/Footer';
 
@@ -13,7 +13,7 @@ import logo from './logo.svg';
 import axios from 'axios';
 
 function App() {
-  const [data, setData] = useState(null);
+  /* const [data, setData] = useState(null);
 
   useEffect(() => {
     axios.get("/users")
@@ -24,19 +24,19 @@ function App() {
       .catch((err) => {
         console.log(err);
       })
-  },[data]);
+  },[data]); */
 
   return (
     <div className="App">
       
-        <header className="App-header">
+        {/* <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
             {!data ? "Loading..." : data}
           </p>
         
-        </header>
-      {/* <Header/> */}
+        </header> */}
+      <Header/>
       <BrowserRouter>
         <Main/>
       </BrowserRouter>
