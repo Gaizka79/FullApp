@@ -6,7 +6,7 @@ import { userContext } from "../../../context/userContext";
 
 function User (props) {
 
-  const { users, setUsers } = useContext(userContext);
+  const { setUsers } = useContext(userContext);
   const { nombre, apellidos, email, role, _id } = props.value;
 
   const handleDelete = async (event) => {
