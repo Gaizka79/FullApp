@@ -1,11 +1,31 @@
 import React from "react";
+import { useContext } from "react";
+import axios from "axios";
+
+import { userContext } from "../../../context/userContext";
 
 function User (props) {
 
+  const { users, setUsers } = useContext(userContext);
   const { nombre, apellidos, email, role, _id } = props.value;
 
+  const handleDelete = async (event) => {
+    event.preventDefault();
+    console.log(event);
+    console.log(_id);
+    try {
+      axios.delete(`/users/delete/${_id}`)
+        .then((response) => console.log(response.data))
+        const resp = await axios.get("/users")
+        const result = await resp.data;
+        setUsers(result)
+    } catch (error) {
+      console.log(`Error: ${error}`);
+    }
+  }
+
   return (
-    <article className="producto">
+    <article className="user">
       <p className="_id">Id: {_id}</p>
       <h2>{nombre}</h2>
       <h4>Apellidos: {apellidos}</h4>
@@ -13,10 +33,10 @@ function User (props) {
       <p><b>role: </b> {role}</p>
       {/* {foto ? <img src={foto} alt="argazkia" /> :
         <img src={noImage} alt="argazkia" />} */}
-      {/* <div className="product_buttons">
-        <button className="putBt"><b>Editar</b></button>
-        <button className="deleteBt"><b>Borrar</b></button>
-      </div> */}
+      <div className="product_buttons">
+        <button className="button_primary"><b>Editar</b></button>
+        <button className="button_primary" onClick={handleDelete}><b>Borrar</b></button>
+      </div>
     </article>
   )
 }
