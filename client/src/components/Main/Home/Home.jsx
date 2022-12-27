@@ -1,33 +1,31 @@
 import React from "react";
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useContext } from 'react';
+
+import { userContext } from "../../../context/userContext";
 
 import User from '../User/User';
+import Spinner from '../../../utils/Spinner';
+//import getUsers from "../../../hooks/getUsers";
 
 function Home () {
-  const [data, setData] = useState(null);
 
-  useEffect(() => {
-    axios.get("/users")
-      .then((res)=> {
-        console.log(res.data)
-        //setData(res.data[0].nombre);
-        setData(res.data)
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  },[]);
+  const { users } = useContext(userContext);
+  
+  console.log(users)
 
   const paintUsers = () => {
-    return data.map(
+    return users.map(
       (user,i) => (
       <User value={user} key={i}/>))
   };
 
   return (
     <div className="home">
-      {!data ? <p>"Loading..."</p> : paintUsers()}
+      <section className="container">
+        {!users ? <Spinner/>: ""}
+        {!users ? <p>"Loading..."</p> : paintUsers()}
+      </section>
+      
     </div>
   )
 }

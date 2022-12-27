@@ -3,4 +3,14 @@
     background-color: $color-primary;
 
     min-height: 100vh;
+};
+
+.container {
+    //background-color: pink;
+
+    width: 100%;
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
 }
