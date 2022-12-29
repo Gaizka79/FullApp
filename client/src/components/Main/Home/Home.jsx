@@ -1,17 +1,24 @@
 import React from "react";
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 import { userContext } from "../../../context/userContext";
 
 import User from '../User/User';
-import Spinner from '../../../utils/Spinner';
-//import getUsers from "../../../hooks/getUsers";
+import Spinner from '../../../utils/Spinner'
+import useAxios from "../../../hooks/useAxios";
 
 function Home () {
 
-  const { users } = useContext(userContext);
-  
-  console.log(users)
+  const { users, setUsers } = useContext(userContext);
+  const { response, loading, error } = useAxios();
+
+  useEffect (() => {
+    if (error) console.log(`Error: ${error}`);
+    if (response !== null) {
+      setUsers(response)
+    }
+    console.log(response)
+  },[response]);
 
   const paintUsers = () => {
     return users.map(
@@ -22,8 +29,8 @@ function Home () {
   return (
     <div className="home">
       <section className="container">
-        {!users ? <Spinner/>: ""}
-        {!users ? <p>"Loading..."</p> : paintUsers()}
+        {loading ? <Spinner/>: ""}
+        {loading ? <p>"Loading..."</p> : paintUsers()}
       </section>
       
     </div>
