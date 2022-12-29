@@ -3,6 +3,7 @@ import { useContext } from "react";
 import axios from "axios";
 
 import { userContext } from "../../../context/userContext";
+//import useAxios from "../../../hooks/useAxios";
 
 function User (props) {
 
@@ -16,9 +17,13 @@ function User (props) {
     try {
       axios.delete(`/users/delete/${_id}`)
         .then((response) => console.log(response.data))
+      
         const resp = await axios.get("/users")
-        const result = await resp.data;
-        setUsers(result)
+        setUsers(resp.data)
+
+        /* const { response, error } = useAxios();
+        response ? setUsers(response) : console.log(`Error: ${error}`); */
+
     } catch (error) {
       console.log(`Error: ${error}`);
     }

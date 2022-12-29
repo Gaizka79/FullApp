@@ -6,7 +6,7 @@ function Nav () {
   return (
     <nav>
       
-      <Link to={"/new"}>Nuevito</Link>
+      <Link to={"/new"}>Nuevo</Link>
       <Link to={"/"}>Home</Link>
 
       <button className="button"><Link to={"/new"}>Berria</Link></button>

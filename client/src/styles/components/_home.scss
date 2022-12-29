@@ -6,11 +6,5 @@
 };
 
 .container {
-    //background-color: pink;
-
-    width: 100%;
-
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-around;
+    @include container;
 }
