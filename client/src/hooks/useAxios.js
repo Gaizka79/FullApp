@@ -7,16 +7,18 @@ const useAxios = (url = "/users") => {
     const [ error, setError ] = useState(null);
     const [ loading, setLoading ] = useState(true);
 
-    const fetchData = async() => {
-        setTimeout(async() => {
-            await axios.get(url)
-                .then((res) => setResponse(res.data))
-                .catch((err) => setError(err))
-                .finally(() => setLoading(false))
-        }, 2000);
-    }
+    
 
     useEffect(() => {
+        const fetchData = async() => {
+            setTimeout(async() => {
+                await axios.get(url)
+                    .then((res) => setResponse(res.data))
+                    .catch((err) => setError(err))
+                    .finally(() => setLoading(false))
+            }, 2000);
+        };
+        
         fetchData();
     }, [url]);
     return { response, error, loading };
