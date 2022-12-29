@@ -1,5 +1,5 @@
 require("dotenv").config();
-//const path = require('path');
+const path = require('path');
 const express = require('express');
 const app = express();
 
@@ -17,10 +17,10 @@ require('./server/config/mongoConfig.js');
 app.use(morgan(':date[clf] :method :referrer :host :status :param[id] - :response-time ms :body'));
 app.use(cors());
 
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-//app.use(express.static(path.join(__dirname, './client/build')));
+app.use(express.static(path.join(__dirname, './client/build')));
 
 app.use('/', routesUser);
 

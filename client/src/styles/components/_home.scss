@@ -2,5 +2,9 @@
     color: white;
     background-color: $color-primary;
 
-    height: 60vh;
+    min-height: 100vh;
+};
+
+.container {
+    @include container;
 }

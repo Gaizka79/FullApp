@@ -1,9 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Nav () {
+
   return (
     <nav>
-      <strong>NAV bar</strong>
+      
+      <Link to={"/new"}>Nuevo</Link>
+      <Link to={"/"}>Home</Link>
+
+      <button className="button"><Link to={"/new"}>Berria</Link></button>
     </nav>
   )
 }

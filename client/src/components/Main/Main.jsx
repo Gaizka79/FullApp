@@ -3,6 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 
 import Home from './Home/Home';
 import User from './User/User';
+import New from "./User/New/New";
+import Edit from "./User/Edit/Edit";
 
 function Main () {
   return (
@@ -10,6 +12,8 @@ function Main () {
       <Routes>
         <Route element={<Home/>} path='/'/>
         <Route element={<User/>} path='/users'/>
+        <Route element={<New/>} path='/new'/>
+        <Route element={<Edit/>} path='/edit'/>
       </Routes>
     </main>
   )
