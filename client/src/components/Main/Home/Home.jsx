@@ -16,12 +16,13 @@ function Home () {
 
   useEffect (() => {
     
+    setIsLoading(true);
     if (error) console.log(`Error: ${error}`);
     if (response !== null) {
       setUsers(response)
-      setIsLoading(loading);
     }
     console.log(response)
+    setIsLoading(loading);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[response]);
 
@@ -32,11 +33,9 @@ function Home () {
   };
 
   return (
-    <div className="home">
-      <section className="container">
-        {isLoading ? <Spinner/>: ""}
-        {isLoading ? <p>"Loading..."</p> : paintUsers()}
-      </section>
+    <div className="home container">
+      {isLoading ? <Spinner/>: ""}
+      {isLoading ? <p>"Loading..."</p> : paintUsers()}
     </div>
   )
 }
