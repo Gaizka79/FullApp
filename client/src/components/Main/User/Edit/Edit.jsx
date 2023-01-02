@@ -99,8 +99,9 @@ useEffect (() => {
           <option value="user">User</option>
       </select>
 
-      <button type="submit">Aceptar</button>
-      <input type="button" value="Cancelar" onClick={handleCancel} className="button"/>
+      <button type="submit" className="button">Aceptar</button>
+      {/* <input type="button" value="Cancelar" onClick={handleCancel} className="button"/> */}
+      <button className="button" onClick={handleCancel}>Cancelar</button>
 
       {message ?
         <p>{message}</p> :

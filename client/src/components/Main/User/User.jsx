@@ -1,18 +1,13 @@
 import React, { useContext } from "react";
-import axios from "axios";
-
 import { Link } from "react-router-dom";
 
 import { userContext } from "../../../context/userContext";
-//import { useState } from "react";
-//import useAxios from "../../../hooks/useAxios";
+import axios from "axios";
 
 function User (props) {
 
   const { setUsers } = useContext(userContext);
   const { nombre, apellidos, email, role, _id } = props.value;
-
-  //const [ edit, setEdit ] = useState(false)
 
   const handleDelete = async (event) => {
     event.preventDefault();
@@ -28,15 +23,6 @@ function User (props) {
       console.log(`Error: ${error}`);
     }
   }
-
-  /* const handleEdit = async () => {
-    //event.preventDefault();
-    console.log("mierda de edit");
-    console.log(props.value);
-    return (
-      <Link to={"/new"} data={props.value}/>
-    )
-  } */
   
   return (
     <article className="user">
@@ -47,9 +33,9 @@ function User (props) {
         <p><b>role: </b> {role}</p>
         {/* {foto ? <img src={foto} alt="argazkia" /> :
           <img src={noImage} alt="argazkia" />} */}
-        <div className="product_buttons">
-          <Link to={`/edit/${_id}`} value={props.value}>Editar</Link>
-          <button className="button_primary" onClick={handleDelete}><b>Borrar</b></button>
+        <div className="edit_buttons">
+          <Link to={`/edit/${_id}`}><button className="button"><b>Editar</b></button></Link>
+          <button className="button" onClick={handleDelete}><b>Borrar</b></button>
         </div>
     </article>
   )

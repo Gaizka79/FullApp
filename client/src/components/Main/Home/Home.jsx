@@ -1,41 +1,38 @@
-import React from "react";
-import { useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { userContext } from "../../../context/userContext";
-import { loadingContext } from "../../../context/loadingContext";
 
 import User from '../User/User';
 import Spinner from '../../../utils/Spinner'
 import useAxios from "../../../hooks/useAxios";
 
+import { v4 as uuidv4 } from 'uuid';
+
 function Home () {
 
   const { users, setUsers } = useContext(userContext);
-  const { isLoading, setIsLoading } = useContext(loadingContext);
   const { response, loading, error } = useAxios();
 
   useEffect (() => {
-    
-    setIsLoading(true);
     if (error) console.log(`Error: ${error}`);
     if (response !== null) {
       setUsers(response)
     }
     console.log(response)
-    setIsLoading(loading);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[response]);
 
   const paintUsers = () => {
+    
     return users.map(
-      (user,i) => (
-      <User value={user} key={i}/>))
+      (user) => (
+      <User value={user} key={uuidv4()}/>))
   };
 
   return (
     <div className="home container">
-      {isLoading ? <Spinner/>: ""}
-      {isLoading ? <p>"Loading..."</p> : paintUsers()}
+      {loading ? <Spinner/>: ""}
+      {loading ? <p>"Loading..."</p> : paintUsers()}  {/* //quitamos isLoading */}
     </div>
   )
 }

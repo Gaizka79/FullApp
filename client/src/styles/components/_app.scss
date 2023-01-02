@@ -11,6 +11,11 @@
   .reverse { animation: reverse-spin infinite 2s linear }
 }
 
+.button {
+  @include button;
+  margin: 0.5em 1em 0.5em 1em;
+}
+
 .App-header {
   background-color: $color-secondary;
   min-height: 10vh;
