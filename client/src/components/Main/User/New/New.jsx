@@ -80,7 +80,7 @@ function New () {
           <option value="user" selected>User</option>
       </select>
 
-      <button type="submit">Añadir</button>
+      <button type="submit" className="button">Añadir</button>
 
       {message ?
         <p>{message}</p> :

@@ -4,5 +4,10 @@
     color: white;
     margin: auto;
     max-width: 50%;
+
+    & button {
+        @include button;
+        margin: 0.5em 1em 0.5em 1em;
+    }
 }
 
