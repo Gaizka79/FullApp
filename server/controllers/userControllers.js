@@ -3,14 +3,14 @@ const db = require('../config/mongoConfig');
 const userDB = require('../models/usersModel');
 
 const getUsers = async (req, res) => {
-    console.log("Estamos en getUsers");
     try {
         const allUsers = await userDB.getAllUsers();
         //console.log(allUsers);
         res.status(200).json(allUsers);
     } catch (error) {
         console.log(`Error en getUsers: ${error}`);
-        throw(error);
+        //throw(error);
+        res.status(500).json({message: error})
     }
 };
 
@@ -22,7 +22,8 @@ const getById = async (req, res) => {
         res.status(200).json(oneUser);
     } catch (error) {
         console.log(`Error en getById: ${error}`)
-        throw(error);
+        res.status(500).json({message: error})
+        //throw(error);
     }
 };
 
@@ -34,7 +35,8 @@ const getByName = async (req, res) => {
         res.status(200).send(oneUser);
     } catch (error) {
         console.log(`Error en getByName: ${error}`)
-        throw(error);
+        res.status(500).json({message: error})
+        //throw(error);
     }
 };
 
@@ -44,7 +46,8 @@ const addUser = async (req, res) => {
         res.status(200).send({ message: "User succesfully created!" });
     } catch (error) {
         console.log(`Error en addUser: ${error}`)
-        throw(error);
+        res.status(500).json({message: error})
+        //throw(error);
     }
 };
 
@@ -63,11 +66,12 @@ const putUser = async (req, res) => {
     try {
         await userDB.editUser(filter, update)
             .then((response) => response  
-                ? res.status(200).json({ message: `Usuario con id:${filter} editado OK! Con los datos: ${response}` }) 
+                ? res.status(201).json({ message: `Usuario con id:${filter} editado OK! Con los datos: ${response}` }) 
                 : res.status(400).json({ message: `Usuario con id:${filter} NO ENCONTRADO!` }) 
             )
     } catch (error) {
         console.log(`Error en putUser: ${error}`)
+        res.status(500).json({message: error})
     }
 };
 
@@ -80,6 +84,7 @@ const deleteUser = async (req, res) => {
         )
     } catch (error) {
         console.log(`Error en deleteUser: ${error}`)
+        res.status(500).json({message: error})
     }
 }
 

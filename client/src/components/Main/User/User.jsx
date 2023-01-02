@@ -9,6 +9,7 @@ function User (props) {
   const { setUsers } = useContext(userContext);
   const { nombre, apellidos, email, role, _id } = props.value;
 
+
   const handleDelete = async (event) => {
     event.preventDefault();
     console.log(event);
@@ -19,6 +20,7 @@ function User (props) {
       
       const resp = await axios.get("/users")
       setUsers(resp.data)
+      
     } catch (error) {
       console.log(`Error: ${error}`);
     }

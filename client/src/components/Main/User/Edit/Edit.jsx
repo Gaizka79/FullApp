@@ -37,11 +37,12 @@ useEffect (() => {
     try {
       await axios.put(`/users/edit/${params._id}`, values)
         .then((response) => console.log(response.data))
+      setMessage("Usuario editado OK");
     } catch (error) {
       console.log(`Error: ${error}`);
       setMessage(error);
     }
-    setMessage("Usuario editado OK");
+    
     setTimeout(() => {
       return navigate("/", { replace: true });
     }, 1500);
@@ -56,7 +57,8 @@ useEffect (() => {
       setValues(newValues);
   }
 
-  const handleCancel = () => {
+  const handleCancel = (event) => {
+    event.preventDefault()
     setMessage("Cambios no guardados")
     setTimeout(() => {
       return navigate("/", { replace: true });
@@ -100,7 +102,6 @@ useEffect (() => {
       </select>
 
       <button type="submit" className="button">Aceptar</button>
-      {/* <input type="button" value="Cancelar" onClick={handleCancel} className="button"/> */}
       <button className="button" onClick={handleCancel}>Cancelar</button>
 
       {message ?

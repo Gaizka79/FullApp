@@ -42,7 +42,6 @@ const deleteUser = async (id) => {
     try {
         return await users.deleteOne({ _id: id });
     } catch (error) {
-        console.log(`Error en deleteUser: ${error}`);
         throw(error);  
     }
 };

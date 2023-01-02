@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+//axios.defaults.baseURL='/users';
+
 const useAxios = (url = "/users") => {
 
     const [ response, setResponse ] = useState(null);
