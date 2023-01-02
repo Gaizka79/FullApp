@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";//
-import { useNavigate } from "react-router-dom";//
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
@@ -13,20 +13,21 @@ function New () {
     role: "user"
   });
 
-  const { register, handleSubmit } = useForm();//
-  let navigate = useNavigate();//
+  const { register, handleSubmit } = useForm();
+  let navigate = useNavigate();
 
   const [ message, setMessage ] = useState(null);
 
-  const onSubmit = async event => {
+  const onSubmit = async () => {
     try {
       await axios.post("/users/create", values)
         .then((response) => console.log(response.data))
+      setMessage("Usuario creado OK");
     } catch (error) {
       console.log(`Error: ${error}`);
+      setMessage(error);
     }
-    console.log(event);
-    setMessage("Usuario creado OK");
+
     setTimeout(() => {
       return navigate("/", { replace: true });//
     }, 1500);
@@ -34,7 +35,6 @@ function New () {
 
   const handleChange = event => {
     event.preventDefault();
-    console.log(register)
     setMessage(null);
     
     const { target } = event;
@@ -48,7 +48,7 @@ function New () {
       <p>Crear</p>
       <label htmlFor="nombre">Nombre:</label>
       <input 
-        {...register("nombre")}//
+        {...register("nombre")}
         type="text"
         name="nombre"
         value={values.nombre}
@@ -56,7 +56,7 @@ function New () {
 
       <label htmlFor="apellidos">Apellidos:</label>
       <input 
-        {...register("apellidos")}//
+        {...register("apellidos")}
         type="text"
         name="apellidos"
         value={values.apellidos}
@@ -64,7 +64,7 @@ function New () {
 
       <label htmlFor="email">email:</label>
       <input 
-        {...register("email")}//
+        {...register("email")}
         type="text"
         name="email"
         value={values.email}
@@ -72,7 +72,7 @@ function New () {
 
       <label htmlFor="role">Role:</label>
       <select 
-        {...register("role")}//
+        {...register("role")}
         name="role" 
         id="role" 
         onChange={handleChange}>

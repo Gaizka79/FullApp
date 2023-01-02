@@ -9,5 +9,16 @@ header {
     height: 3em;
     width: auto;
     margin: 5px;
+
+    @media (max-width: 700px) {
+        height: 1.5em;
+        width: auto;
+        margin: 3px;
+    }
+    @media (max-width: 400px) {
+        height: 1em;
+        width: auto;
+        margin: 1.5px;
+    }
     
 }

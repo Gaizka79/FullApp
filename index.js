@@ -14,7 +14,8 @@ const morgan = require('./server/middlewares/morganConfig');
 require('body-parser');
 require('./server/config/mongoConfig.js');
 
-app.use(morgan(':date[clf] :method :referrer :host :status :param[id] - :response-time ms :body'));
+//app.use(morgan(':date[clf] :method :referrer :host :status :param[id] - :response-time ms :body'));
+app.use(morgan("dev"));
 app.use(cors());
 
 app.use(express.json());
