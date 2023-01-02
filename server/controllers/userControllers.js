@@ -19,7 +19,7 @@ const getById = async (req, res) => {
     try {
         const oneUser = await userDB.getUserById(req.params.id);
         console.log(oneUser);
-        res.status(200).send(oneUser);
+        res.status(200).json(oneUser);
     } catch (error) {
         console.log(`Error en getById: ${error}`)
         throw(error);
@@ -57,6 +57,8 @@ const putUser = async (req, res) => {
         email: req.body.email,
         role: req.body.role
     };
+    console.log(filter);
+    console.log(update)
     
     try {
         await userDB.editUser(filter, update)

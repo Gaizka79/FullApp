@@ -10,10 +10,10 @@ function Main () {
   return (
     <main className="main">
       <Routes>
-        <Route element={<Home/>} path='/'/>
+        <Route element={<Home/>} exact path='/'/>
         <Route element={<User/>} path='/users'/>
         <Route element={<New/>} path='/new'/>
-        <Route element={<Edit/>} path='/edit'/>
+        <Route element={<Edit/>} path='/edit/:_id'/>
       </Routes>
     </main>
   )

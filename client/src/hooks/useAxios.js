@@ -7,8 +7,6 @@ const useAxios = (url = "/users") => {
     const [ error, setError ] = useState(null);
     const [ loading, setLoading ] = useState(true);
 
-    
-
     useEffect(() => {
         const fetchData = async() => {
             setTimeout(async() => {
@@ -16,11 +14,12 @@ const useAxios = (url = "/users") => {
                     .then((res) => setResponse(res.data))
                     .catch((err) => setError(err))
                     .finally(() => setLoading(false))
-            }, 2000);
+            }, 1500);
         };
         
         fetchData();
     }, [url]);
+    
     return { response, error, loading };
 };
 
