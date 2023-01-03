@@ -5,11 +5,8 @@ function Nav () {
 
   return (
     <nav>
-      
-      <Link to={"/new"}>Nuevo</Link>
-      <Link to={"/"}>Home</Link>
-
-      <button className="button"><Link to={"/new"}>Berria</Link></button>
+      <Link to={"/new"}><button className="button"><b>Nuevo</b></button></Link>
+      <Link to={"/"}><button className="button"><b>Home</b></button></Link>
     </nav>
   )
 }

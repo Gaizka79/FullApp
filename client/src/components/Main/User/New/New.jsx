@@ -1,5 +1,6 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
@@ -9,24 +10,32 @@ function New () {
     nombre: "",
     apellidos: "",
     email: "",
-    role: ""
+    role: "user"
   });
 
-  const handleSubmit = async event => {
-    event.preventDefault();
+  const { register, handleSubmit } = useForm();
+  let navigate = useNavigate();
 
+  const [ message, setMessage ] = useState(null);
+
+  const onSubmit = async () => {
     try {
       await axios.post("/users/create", values)
         .then((response) => console.log(response.data))
+      setMessage("Usuario creado OK");
     } catch (error) {
       console.log(`Error: ${error}`);
+      setMessage(error);
     }
-    console.log(event);
-    
+
+    setTimeout(() => {
+      return navigate("/", { replace: true });//
+    }, 1500);
   }
 
   const handleChange = event => {
     event.preventDefault();
+    setMessage(null);
     
     const { target } = event;
     const { name, value } = target;
@@ -34,12 +43,12 @@ function New () {
     setValues(newValues);
   }
 
-
   return (
-    <form onSubmit={handleSubmit} className="new">
+    <form onSubmit={handleSubmit(onSubmit)} className="new"> {/* Añadido onSubmit */}
       <p>Crear</p>
       <label htmlFor="nombre">Nombre:</label>
       <input 
+        {...register("nombre")}
         type="text"
         name="nombre"
         value={values.nombre}
@@ -47,6 +56,7 @@ function New () {
 
       <label htmlFor="apellidos">Apellidos:</label>
       <input 
+        {...register("apellidos")}
         type="text"
         name="apellidos"
         value={values.apellidos}
@@ -54,19 +64,28 @@ function New () {
 
       <label htmlFor="email">email:</label>
       <input 
+        {...register("email")}
         type="text"
         name="email"
         value={values.email}
         onChange={handleChange} />
 
       <label htmlFor="role">Role:</label>
-      <select name="role" id="role" onChange={handleChange}>
-        <option value="admin">Admin</option>
-        <option value="user">User</option>
+      <select 
+        {...register("role")}
+        name="role" 
+        id="role" 
+        onChange={handleChange}>
+          <option value="admin">Admin</option>
+          <option value="user" selected>User</option>
       </select>
 
-      <button type="submit">Añadir</button>
-      
+      <button type="submit" className="button">Añadir</button>
+
+      {message ?
+        <p>{message}</p> :
+        <></>
+      }
     </form>
   )
 }
