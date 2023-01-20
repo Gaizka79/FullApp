@@ -22,7 +22,7 @@ function User (props) {
       setUsers(resp.data)
       
     } catch (error) {
-      console.log(`Error: ${error}`);
+      console.error(`Error: ${error}`);
     }
   }
   
