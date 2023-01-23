@@ -14,8 +14,9 @@ const useAxios = (url = "/users") => {
             setTimeout(async() => {
                 await axios.get(url)
                     .then((res) => setResponse(res.data))
+                    .then((response) =>  setLoading(false))
                     .catch((err) => setError(err))
-                    .finally(() => setLoading(false))
+                    //.finally(() => setLoading(false))
             }, 1500);
         };
         
