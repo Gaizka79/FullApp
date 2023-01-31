@@ -24,11 +24,16 @@ const createToken = async (req, res, next) => {
 }
 
 const verifyToken = async (req, res, next) => {
-    if (!req.headers.authentication) return res.status(403).send({message: "Token not found!"})
+    console.log("en verifyToken.......")
+    console.log(req.headers)
+    if (!req.headers.Authentication) return res.status(403).send({message: "Token not found!"})
+    console.log("aaaaaaen verifyToken.......")
 
-    const token = req.headers.authentication;
+    const token = req.headers.Authentication.split(" ")[1];   //
+    console.log(token)
     jwt.verify(token, 'process.env.ACCES_TOKEN_SECRET', (error, decoded) => {
         if (error) return res.status(403).send({message: error.message})
+        //res.status(200).send(token)
         next()
     })
 }
