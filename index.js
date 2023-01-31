@@ -5,6 +5,7 @@ const app = express();
 
 const connectDB = require('./server/config/mongoConfig');
 const routesUser = require('./server/routes/routesUser');
+const routesAuth = require('./server/routes/routesAuth');
 
 const PORT = process.env.PORT || 5000;
 
@@ -23,7 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, './client/build')));
 
-app.use('/', routesUser);
+app.use('/', routesUser, routesAuth);
 
 app.get('/api', (req, res) => {
     console.log("Solicitud recibida");
