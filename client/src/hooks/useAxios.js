@@ -3,7 +3,7 @@ import axios from "axios";
 
 //axios.defaults.baseURL='/users';
 
-const useAxios = (url = "/users") => {
+const useAxios = (url = "http://localhost:3001/users") => {
 
     const [ response, setResponse ] = useState(null);
     const [ error, setError ] = useState(null);

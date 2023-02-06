@@ -4,9 +4,9 @@ const userSchema = new mongoose.Schema({
     nombre: {
         type: String
     },
-    apellidos: {
+    /* apellidos: {
         type: String
-    },
+    }, */
     email: {
         type: String
     },

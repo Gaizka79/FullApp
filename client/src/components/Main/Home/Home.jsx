@@ -1,26 +1,48 @@
 import React, { useContext, useEffect } from 'react';
+import { isExpired, decodeToken } from 'react-jwt';
+import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 
 import { userContext } from "../../../context/userContext";
+import { loginContext } from '../../../context/loginContext';
 
 import User from '../User/User';
-import Spinner from '../../../utils/Spinner'
-import useAxios from "../../../hooks/useAxios";
+//import Spinner from '../../../utils/Spinner'
+//import useAxios from "../../../hooks/useAxios";
 
-import { v4 as uuidv4 } from 'uuid';
+import Login from "./Login/Login";
 
 function Home () {
 
   const { users, setUsers } = useContext(userContext);
-  const { response, loading, error } = useAxios();
+  const { loginUser, setLoginUser } = useContext(loginContext);
 
   useEffect (() => {
-    if (error) console.log(`Error: ${error}`);
-    if (response !== null) {
-      setUsers(response)
+    async function checkToken () {
+      let isLogged = localStorage.getItem('token')
+      if (isExpired(isLogged)) return
+      if (isLogged) {
+        let temp = decodeToken(isLogged)
+        setLoginUser(temp.nombre)
+      }
     }
-    console.log(response)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[response]);
+    checkToken();
+  },[])
+
+
+  useEffect (() => {
+    async function fetchData() {
+      try {
+          const request = await axios.get("https://pokeapi.co/api/v2/pokemon/?limit=20&offset=20")
+          const response = await request.data.results;
+          console.log(request)
+          setUsers(response)
+      } catch (err) {
+          console.log(err);
+      }
+    }
+    fetchData();
+  },[loginUser])
 
   const paintUsers = () => {
     
@@ -31,8 +53,10 @@ function Home () {
 
   return (
     <div className="home container">
-      {loading ? <Spinner/>: ""}
-      {loading ? <p>"Loading..."</p> : paintUsers()}  {/* //quitamos isLoading */}
+      {!loginUser ? <Login/> : paintUsers()}
+      {/* {!loginUser ? <Login/> :  getPokemons()} */}
+      {/* {loading ? <Spinner/>: ""}
+      {loading ? <p>"Loading..."</p> : paintUsers()}  */} {/* //quitamos isLoading */}
     </div>
   )
 }

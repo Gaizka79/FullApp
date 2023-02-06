@@ -1,24 +1,35 @@
 require('mongoose');
+const jwt = require('jsonwebtoken');
 const users = require('../models/users');
 const userDB = require('../models/usersModel')
+const { createHash } = require('../config/hash');
 
 const loginUser = (req, res) => {
     console.log(req.body)
     console.log(req.headers.Authentication)
-    res.status(200).send({message: "login User", token: req.headers.Authentication})
+    res.status(200).send({message: "Login success!!", token: req.headers.Authentication})
 }
 
 const signupUser = async (req, res, next) => {
     try {
+        if (!req.body.password) return res.status(400)
+        req.body.password = await createHash(req.body.password)
+        req.body.email = req.body.email.toLowerCase();
         await userDB.postUser(req.body);
-        next();
-        //res.status(200).send({ message: "User succesfully created!" });
+
+        const { email, nombre, role } = req.body;
+        const token = jwt.sign(
+            {email: email, nombre: nombre, role: role},
+            'process.env.ACCES_TOKEN_SECRET',
+            { expiresIn: '12h'});
+
+        if (!token) return false
+        req.headers.Authentication =`Bearer: ${token}`;
+        return res.status(200).send({message: "signUP success!!", token: req.headers.Authentication})
     } catch (error) {
         console.error(`Error en signupUser: ${error}`)
-        res.status(500).json({message: error})
-        //throw(error);
+        return res.status(500).json({message: error})
     }
-    //res.status(200).send({message: "Signup User"})
 }
 
 const logout = async (req, res) => {

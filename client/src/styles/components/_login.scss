@@ -1,0 +1,13 @@
+.login {
+    @include card;
+
+    & input {
+        height: 30px;
+    }
+    & select {
+        height: 30px;
+    }
+    display: flex;
+    max-width: 75%;
+    max-height: 95vh;
+}

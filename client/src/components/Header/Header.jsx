@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
+
+import { loginContext } from "../../context/loginContext";
 
 import logo from '../../logo.svg';
 import Nav from './Nav/Nav';
@@ -8,7 +10,11 @@ import express from '../../assets/Expressjs_logo.png';
 import react_logo from '../../assets/react_logo.png';
 import node_logo from '../../assets/Nodejs_logo.png';
 
+
+
 function Header () {
+
+  const { loginUser, setLoginUser } = useContext(loginContext);
 
   return (
     <>
@@ -19,10 +25,10 @@ function Header () {
           <img src={express} alt="express logo" className="logo"/>
           <img src={react_logo} alt="react_logo logo" className="logo"/>   
           <img src={node_logo} alt="node_logo logo" className="logo"/>    
-          
         </div>
         <img src={logo} className="App-logo reverse" alt="logo" />
       </header>
+      {loginUser && <p>Bienvenido: {loginUser}</p>}
       <Nav/>
     </>
   )
