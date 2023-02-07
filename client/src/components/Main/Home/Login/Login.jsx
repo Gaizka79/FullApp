@@ -30,10 +30,13 @@ function Login () {
 
   const onLoginSubmit = async () => {
     try {
+      if (!values.password) return setMessage("Password is required!!")
+      if (!values.nombre) return setMessage("Nombre is required!")
+      
       const request = await axios
         .post("http://localhost:3001/login",
         values)
-
+      console.log(request.data.message)
       let firstToken = request.data.token.split(" ")[1]
       localStorage.setItem('token', firstToken);
       setLoginUser(values.nombre)
@@ -41,8 +44,8 @@ function Login () {
       setMessage("Login OK!")
       
     } catch (error) {
-      console.log(`Error en login React: ${error}`);
-      setMessage(error);
+      console.error(`Error en login React: ${error}`);
+      setMessage(error.response.data.message);
     } finally {
       setTimeout(() => {
         return navigate("/", { replace: true });
@@ -73,14 +76,15 @@ function Login () {
   }
 
   const handleLoginForm = event => {
+    setMessage(null);
     setLoginForm(!loginForm);
   }
 
   const handleInvitado = () => {
     setMessage(null);
     document.getElementsByName("nombre")[0].value = "Invitado";
-    document.getElementsByName("password")[0].value = "123456";
-    const newValues = {nombre: "invitado", password: "123456"}
+    document.getElementsByName("password")[0].value = "usuarioinvitado";
+    const newValues = {nombre: "Invitado", password: "usuarioinvitado"}
     setValues(newValues)
   }
 
@@ -105,6 +109,7 @@ function Login () {
             type="text"
             name='nombre'
             value={values.nombre}
+            placeholder="Nombre de usuario"
             onChange={handleChange} />
 
           <label htmlFor="password">Password:</label>
@@ -113,11 +118,13 @@ function Login () {
             type="password"
             name='password'
             value={values.password}
+            placeholder="Contraseña..."
             onChange={handleChange} />
 
           <button type="submit" className="button">Login</button>
           <button onClick={handleSubmit(handleInvitado)} className="button">Invitado</button>
           <button onClick={handleSubmit(handleLoginForm)} className="button">New user</button>
+          { message && <p>{message}</p>}
         </form> 
         : 
         <form onSubmit={handleSubmit(onSignupSubmit)} className="login container">
@@ -128,6 +135,7 @@ function Login () {
             type="text"
             name='nombre'
             value={values.nombre}
+            placeholder="Nombre de usuario"
             onChange={handleChange} />
 
           <label htmlFor="email">Email:</label>
@@ -136,6 +144,7 @@ function Login () {
             type="text"
             name='email'
             value={values.email}
+            placeholder="email"
             onChange={handleChange} />
 
           <label htmlFor="password">Password:</label>
@@ -144,6 +153,7 @@ function Login () {
             type="password"
             name='password'
             value={values.password}
+            placeholder="Contraseña..."
             onChange={handleChange} />
 
           <label htmlFor="role">Role:</label>
@@ -158,10 +168,11 @@ function Login () {
           </select>
           <button type="submit" className="button">Save</button>
           <button onClick={handleSubmit(handleLoginForm)} className="button">Go to Login</button>
+          { message && <p>{message}</p>}
         </form>
         
       }
-      { message && <p>{message}</p>}
+      
     </>
   )
 }

@@ -17,8 +17,7 @@ function User (props) {
       await axios.get(url)
         .then((request) => request.data.sprites.front_default)
         .then((request)=> setImage(request))
-        .catch((error) => console.log(error))
-  
+        .catch((error) => console.error(error))
     }
     getImage(url);
   },[url])
