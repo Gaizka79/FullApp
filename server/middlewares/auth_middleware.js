@@ -1,12 +1,9 @@
 const jwt = require('jsonwebtoken');
 const { getUser } = require('../services/auth_services');
-const { createHash, checkPassword } = require('../config/hash');
+const { checkPassword } = require('../config/hash');
 
 const createToken = async (req, res, next) => {
-    console.log("en createtoken")
     const user = await getUser(req)
-    console.log("en createtoken despues de getuser")
-    console.log(user)
 
     if (!user) return res.status(404).send({message: "Usuario no encontrado!!!!!!"})
     if (user.message) return res.status(400).send(user.message)

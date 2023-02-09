@@ -22,11 +22,10 @@ function Login () {
   });
 
   const [ loginForm, setLoginForm ] = useState(true)
+  const [ message, setMessage ] = useState(null);
 
   const { register, handleSubmit } = useForm();
   let navigate = useNavigate();
-
-  const [ message, setMessage ] = useState(null);
 
   const onLoginSubmit = async () => {
     try {
@@ -36,7 +35,7 @@ function Login () {
       const request = await axios
         .post("http://localhost:3001/login",
         values)
-      console.log(request.data.message)
+
       let firstToken = request.data.token.split(" ")[1]
       localStorage.setItem('token', firstToken);
       setLoginUser(values.nombre)
@@ -70,8 +69,8 @@ function Login () {
       setMessage("Signup OK!")
 
     } catch (error) {
-      console.log(`Error en Signup react: ${error}`)
-      setMessage(error)
+      console.error(`Error en Signup react: ${error}`)
+      setMessage(error.response.data.message);
     }
   }
 

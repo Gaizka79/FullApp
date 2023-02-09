@@ -1,0 +1,47 @@
+.card {
+    //@include card;
+
+    color: white;
+    background-color: $color-third;
+
+    //display: flexbox;
+    
+    margin: auto;
+
+    border-style: double;
+    border-radius: 1em;
+
+    width: 90%;
+
+    & h2 {
+        font-size: 3rem;
+        background-color: pink;
+    }
+    & .detalles {
+        background-color: green;
+        display: flex;
+        //height: 30vh;
+        & .img_card {
+            background-color: yellow;
+            height: 60%;
+            width: auto;
+            
+        }
+        & .barras {
+            background-color: red;
+            height: 100%;
+            width: 100%;
+        }
+        & .description {
+            background-color: brown;
+            display: inline-block;
+            height: 100%;
+        }
+        & .botones {
+            background-color: aqua;
+            display: flex;
+            justify-content: space-between;
+        }
+
+    }
+}

@@ -1,18 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+import Card from './Card/Card';
+
 import { userContext } from "../../../context/userContext";
 import axios from "axios";
+//import { response } from "express";
 
-function User (props) {
+function Pokemons (props) {
 
   const { setUsers } = useContext(userContext);
   const { nombre, apellidos, email, role, _id } = props.value;
   const { name, url } = props.value;
   const [ image, setImage ] = useState(null);
+  const [ pokemon, setPokemon ] = useState(null);
 
 
   useEffect(() => {
+    //console.log(props)
     const getImage = async url => {
       await axios.get(url)
         .then((request) => request.data.sprites.front_default)
@@ -38,21 +43,30 @@ function User (props) {
     }
   }
 
+  const handleCarrito = () => {}
+
+  const handleFavoritos = () => {}
   
   
   return (
-    <article className="user">
-        <img src={image} alt={name} />
-        <h2>{name}</h2>
-        {/* <h4>Apellidos: {apellidos}</h4>
-        <p><b>email:</b> {url}</p>
-        <p><b>role: </b> {role}</p> */}
-        {/* <div className="edit_buttons">
-          <Link to={`/edit/${_id}`}><button className="button"><b>Editar</b></button></Link>
-          <button className="button" onClick={handleDelete}><b>Borrar</b></button>
-        </div> */}
+    <article className="pokemon">
+      <img src={image} alt={name} />
+      <h2>{name}</h2>
+      <div className="botones">
+        <button onClick={handleCarrito} className="button"><b>Añadir al carrito</b></button>
+        <Link to={`/${name}`}><button className="button"><b>Detalles</b></button></Link>
+        <button onClick={handleFavoritos} className="button"><b>Favoritos</b></button>
+
+      </div>
+      {/* <h4>Apellidos: {apellidos}</h4>
+      <p><b>email:</b> {url}</p>
+      <p><b>role: </b> {role}</p> */}
+      {/* <div className="edit_buttons">
+        <Link to={`/edit/${_id}`}><button className="button"><b>Editar</b></button></Link>
+        <button className="button" onClick={handleDelete}><b>Borrar</b></button>
+      </div> */}
     </article>
   )
 }
 
-export default User;
+export default Pokemons;
