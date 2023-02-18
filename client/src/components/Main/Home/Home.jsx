@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { isExpired, decodeToken } from 'react-jwt';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
@@ -6,8 +6,8 @@ import axios from 'axios';
 import { userContext } from "../../../context/userContext";
 import { loginContext } from '../../../context/loginContext';
 
-import User from '../User/User';
-//import Spinner from '../../../utils/Spinner'
+import Pokemons from '../Pokemons/Pokemons';
+import Spinner from '../../../utils/Spinner'
 //import useAxios from "../../../hooks/useAxios";
 
 import Login from "./Login/Login";
@@ -16,6 +16,7 @@ function Home () {
 
   const { users, setUsers } = useContext(userContext);
   const { loginUser, setLoginUser } = useContext(loginContext);
+  const [ message, setMessage ] = useState(null);
 
   useEffect (() => {
     async function checkToken () {
@@ -33,30 +34,31 @@ function Home () {
   useEffect (() => {
     async function fetchData() {
       try {
-          const request = await axios.get("https://pokeapi.co/api/v2/pokemon/?limit=20&offset=20")
-          const response = await request.data.results;
-          console.log(request)
-          setUsers(response)
+        setMessage(null);
+        setUsers("");
+        const request = await axios.get("https://pokeapi.co/api/v2/pokemon/?limit=20&offset=20")
+        const response = await request.data.results;
+        console.log(request.data)
+        setUsers(response)
       } catch (err) {
-          console.log(err);
+        console.log(err);
+        setMessage(err.message);
       }
     }
     fetchData();
   },[loginUser])
 
   const paintUsers = () => {
-    
     return users.map(
       (user) => (
-      <User value={user} key={uuidv4()}/>))
+      <Pokemons value={user} key={uuidv4()}/>))
   };
 
   return (
     <div className="home container">
-      {!loginUser ? <Login/> : paintUsers()}
-      {/* {!loginUser ? <Login/> :  getPokemons()} */}
-      {/* {loading ? <Spinner/>: ""}
-      {loading ? <p>"Loading..."</p> : paintUsers()}  */} {/* //quitamos isLoading */}
+      {!loginUser ? <Login/> : 
+        !users ? <><Spinner/>{ message && <p>{message}</p>}</>  
+        : paintUsers()}
     </div>
   )
 }

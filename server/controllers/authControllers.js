@@ -5,16 +5,15 @@ const userDB = require('../models/usersModel')
 const { createHash } = require('../config/hash');
 
 const loginUser = (req, res) => {
-    console.log(req.body)
-    console.log(req.headers.Authentication)
     res.status(200).send({message: "Login success!!", token: req.headers.Authentication})
 }
 
 const signupUser = async (req, res, next) => {
     try {
-        if (!req.body.password) return res.status(400)
+        if (!req.body.password) return res.status(400).send({message: "Password required!"})
         req.body.password = await createHash(req.body.password)
         req.body.email = req.body.email.toLowerCase();
+
         await userDB.postUser(req.body);
 
         const { email, nombre, role } = req.body;
@@ -28,7 +27,8 @@ const signupUser = async (req, res, next) => {
         return res.status(200).send({message: "signUP success!!", token: req.headers.Authentication})
     } catch (error) {
         console.error(`Error en signupUser: ${error}`)
-        return res.status(500).json({message: error})
+        console.log(error)
+        return res.status(500).send({message: error})
     }
 }
 

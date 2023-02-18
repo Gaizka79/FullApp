@@ -27,7 +27,10 @@ const getUserByName = async (userName) => {
 
 const postUser = async (user) => {
     try {
+        if (await users.findOne({ nombre: user.nombre }))
+            throw ("El usuario ya existe!!")
         const newUser = new users(user);
+
         await users.create(newUser);
     } catch (error) {
         throw(error);

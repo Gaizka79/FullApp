@@ -1,24 +1,24 @@
 header {
     overflow: hidden;
-}
+    display: flex;
 
-.logos {
-    background-color: rgb(175, 175, 175);
+    & .bienvenido {
+        display: block;
+    }
 }
-.logo {
-    height: 3em;
-    width: auto;
-    margin: 5px;
-
-    @media (max-width: 700px) {
-        height: 1.5em;
-        width: auto;
-        margin: 3px;
-    }
-    @media (max-width: 400px) {
-        height: 1em;
-        width: auto;
-        margin: 1.5px;
-    }
-    
+.header {
+    background-color: $color-secondary;
+    min-height: 10vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  
+    overflow: hidden;
+  }
+.poke_logo {
+    width: 40%;
+    height: auto;
 }

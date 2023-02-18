@@ -4,7 +4,7 @@ require('mongoose');
 const users = require('../models/users');
 
 const getUser = async (req, res) => {
-    const { nombre, password } = req.body;
+    const { nombre } = req.body;
     console.log("nombre: " + nombre)
     try {
         const user = await users.findOne({ nombre: nombre });
