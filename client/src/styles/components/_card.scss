@@ -11,34 +11,34 @@
     border-style: double;
     border-radius: 1em;
 
-    width: 90%;
+    width: 60%;
 
     & h2 {
         font-size: 3rem;
-        background-color: pink;
+        //background-color: pink;
     }
     & .detalles {
-        background-color: green;
+        //background-color: green;
         display: flex;
         //height: 30vh;
         & .img_card {
-            background-color: yellow;
+            //background-color: yellow;
             height: 60%;
             width: auto;
             
         }
         & .barras {
-            background-color: red;
+            //background-color: red;
             height: 100%;
             width: 100%;
         }
         & .description {
-            background-color: brown;
+            //background-color: brown;
             display: inline-block;
             height: 100%;
         }
         & .botones {
-            background-color: aqua;
+            //background-color: aqua;
             display: flex;
             justify-content: space-between;
         }

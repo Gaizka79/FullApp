@@ -17,11 +17,12 @@ function Card () {
     name: "",
     weight: "",
     sprites: "",
-    types: ""
+    abilities: [],
+    types: []
   });
-  
-  const { id, base_experience, height, name, weight, sprites, types } = values;
-  console.log(name, id, base_experience, height, weight, sprites.front_default, types[0].type.name);
+  const [ habilidad, setHabilidad ] = useState(null);
+  const [ tipo, setTipo ] = useState(null);
+  let ability, type;
   
   let navigate = useNavigate();
 
@@ -32,10 +33,26 @@ function Card () {
         .then((response) => setValues(response.data))
         .catch((error) => console.log(error))
     };
-    getDetails();
-    
+    getDetails();   
   }, [pokeName]);
-  
+
+  const { id, base_experience, height, name, weight, sprites, abilities, types } = values;
+
+  useEffect(() => {
+    const getAbilities = async () => {
+      if (abilities[0]?.ability?.url) (ability = abilities[0].ability.url) 
+        else return
+      if (types[0]?.type?.name) (setTipo(types[0].type.name))
+        else return
+      console.log(type)
+      await axios(ability)
+        .then((response) => response.data)
+        .then((response) => setHabilidad(response.effect_entries[1].effect))
+        .catch((error) => console.error(error))
+    }
+    getAbilities();
+  }, [values])
+ 
   const handleReturn = () => {
     return navigate("/", { replace: true });
   }
@@ -50,12 +67,12 @@ function Card () {
         <div className="barras">
           <p htmlFor="">Peso: {weight/10} Kg.</p>
           <p htmlFor="">Altura: {height/10} m.</p>
-          <p htmlFor="">Tipo: {types[0].type.name}</p>
+          <p htmlFor="">Tipo: {tipo} {/*types [0].type.name */}</p>
           <label htmlFor="experiencia">Experiencia:</label>
-          <progress id="experiencia" max="255" value={base_experience} className="progress_bar"> 70% </progress>
+          <progress id="experiencia" max="255" value={base_experience} className="progress_bar"> {base_experience} </progress>
         </div>
         <div className="description">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi est reprehenderit nesciunt dolore quae rerum quidem aut velit sint nobis. Debitis provident aspernatur voluptates natus.</p>
+          <p>{habilidad}</p>
         </div>
       </div>
       
