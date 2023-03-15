@@ -1,17 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import axios from "axios";
+import star from '../../../../assets/star.png';
 //import { response } from "express";
 
+import { userContext } from "../../../../context/userContext";
+
 function Card () {
+
+  const { userData, serUserData } = useContext(userContext);
 
   const params = useParams();
   const pokeName = params.nombre;
   
   const [ message, setMessage ] = useState(null);
   const [ values, setValues ] = useState({
-    id: "",
+    id: null,
     base_experience: "",
     height: "",
     name: "",
@@ -35,11 +40,14 @@ function Card () {
     };
     getDetails();   
   }, [pokeName]);
-
+  console.log(values)
   const { id, base_experience, height, name, weight, sprites, abilities, types } = values;
+  //id = toString(id)
+  console.log(typeof(id))
 
   useEffect(() => {
     const getAbilities = async () => {
+      console.log(userData.favorites)
       if (abilities[0]?.ability?.url) (ability = abilities[0].ability.url) 
         else return
       if (types[0]?.type?.name) (setTipo(types[0].type.name))
@@ -56,12 +64,24 @@ function Card () {
   const handleReturn = () => {
     return navigate("/", { replace: true });
   }
+
   const handleCarrito = () => {}
-  const handleFavoritos = () => {}
+  const handleFavoritos = () => {
+    console.log(typeof(id))
+    console.log(typeof(userData.favorites[1]))
+    console.log(userData.favorites)
+    console.log(id)
+    console.log(typeof(id))
+    console.log(userData.favorites.includes(toString(id)))
+  }
 
   return (
     <article className="card">
+      <div>
       <h2>{name}</h2>
+      {userData.favorites.includes(id) && <img src={star} alt="favorito" className="star" />}
+      <div>{id}</div>
+      </div>
       <div className="detalles">
         <img src={sprites.front_default} alt={name} className="img_card" />
         <div className="barras">

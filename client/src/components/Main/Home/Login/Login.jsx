@@ -7,17 +7,20 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import { loginContext } from '../../../../context/loginContext';
+import { userContext } from "../../../../context/userContext";
 
 //import { v4 as uuidv4 } from 'uuid';
 //import { response } from 'express';
 //import { response } from 'express';
 
 function Login () {
-  const { loginUser, setLoginUser, token, setToken } = useContext(loginContext);/* , token, setToken */ 
+  const { loginUser, setLoginUser, userData, setUserData, token, setToken } = useContext(loginContext);/* , token, setToken */ 
+  const [ favorites, setFavorites ] = useState([]);
   const [ values, setValues ] = useState({
     nombre: "",
     email: "",
     password: "",
+    favorites: [],
     role: "user"
   });
 
@@ -31,15 +34,23 @@ function Login () {
     try {
       if (!values.password) return setMessage("Password is required!!")
       if (!values.nombre) return setMessage("Nombre is required!")
-      
+      console.log("en OnLoginSubmit")
+      console.log(values)
       const request = await axios
         .post("http://localhost:3001/login",
         values)
-
+      console.log("on login submit2")
+      console.log(request)
       let firstToken = request.data.token.split(" ")[1]
       localStorage.setItem('token', firstToken);
+      console.log(request.data)
+      //setUserData(request.data.favorites)
+      //console.log(userData)
       setLoginUser(values.nombre)
+      setFavorites(request.data.favorites)
       
+      console.log("*******login submit*********")
+      console.log(values)
       setMessage("Login OK!")
       
     } catch (error) {
@@ -62,8 +73,11 @@ function Login () {
         .post("http://localhost:3001/signup",
         values)
 
-      let firstToken = request.data.token.split(" ")[1]
+      let firstToken = await request.data.token.split(" ")[1]
       localStorage.setItem('token', firstToken);
+
+      console.log("****************")
+      console.log(values)
       
       setLoginUser(values.nombre)
       setMessage("Signup OK!")

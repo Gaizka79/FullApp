@@ -8,4 +8,12 @@
         @include button;
         margin: 0.5em 1em 0.5em 1em;
     }
+    & .star {
+        height: 2em;
+        width: 2em;
+        //position: relative;
+        //display: inline;
+        /* top: -5%;
+        left: 40%; */
+    }
 }

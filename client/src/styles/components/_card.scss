@@ -3,8 +3,6 @@
 
     color: white;
     background-color: $color-third;
-
-    //display: flexbox;
     
     margin: auto;
 
@@ -16,6 +14,18 @@
     & h2 {
         font-size: 3rem;
         //background-color: pink;
+    }
+    & .star {
+        height: 2em;
+        width: auto;
+        position: relative;
+        //display: inline;
+        top: -5%;
+        left: 40%;
+
+        /* display: inline;
+        height: 2%;
+        right: 2%; */
     }
     & .detalles {
         //background-color: green;

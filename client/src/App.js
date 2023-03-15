@@ -15,10 +15,18 @@ function App() {
   const [ users, setUsers ] = useState([]);
   const [ loginUser, setLoginUser ] = useState(null)
   const [ token, setToken ] = useState(null);
+  const [ userData, setUserData ] = useState({
+                                      nombre: "",
+                                      email: "",
+                                      role: "",
+                                      favorites: []
+                                    })
 
   const data = {
     users,
-    setUsers
+    setUsers,
+    userData,
+    setUserData
   };
   const user = {
     loginUser,

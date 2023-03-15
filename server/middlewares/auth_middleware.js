@@ -3,6 +3,7 @@ const { getUser } = require('../services/auth_services');
 const { checkPassword } = require('../config/hash');
 
 const createToken = async (req, res, next) => {
+    //console.log("En createToken")
     const user = await getUser(req)
 
     if (!user) return res.status(404).send({message: "Usuario no encontrado!!!!!!"})
@@ -19,6 +20,7 @@ const createToken = async (req, res, next) => {
 
         if (!token) return false
         req.headers.Authentication =`Bearer: ${token}`;
+        req.headers.Favorites = user.favorites;
         return next()
     } catch (error) {
         console.error(`Error en createToken: ${error}`)

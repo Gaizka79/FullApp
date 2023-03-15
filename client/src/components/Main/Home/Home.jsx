@@ -14,7 +14,7 @@ import Login from "./Login/Login";
 
 function Home () {
 
-  const { users, setUsers } = useContext(userContext);
+  const { users, setUsers, userData, setUserData } = useContext(userContext);
   const { loginUser, setLoginUser } = useContext(loginContext);
   const [ message, setMessage ] = useState(null);
 
@@ -28,7 +28,25 @@ function Home () {
       }
     }
     checkToken();
-  },[])
+  },[]);
+
+  useEffect(() => {
+    console.log("en el nuevo useffect")
+    if (!loginUser) return
+    console.log(loginUser)
+    console.log("en el nuevo useffect2")
+    async function getUserData () {
+      try {
+        const request = await axios.get(`http://localhost:3001/login/${loginUser}`)
+        const response = await request.data;
+        console.log(response)
+        setUserData(response)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    getUserData();
+  }, [loginUser])
 
 
   useEffect (() => {
@@ -47,6 +65,11 @@ function Home () {
     }
     fetchData();
   },[loginUser])
+
+  useEffect(() => {
+    console.log("Set userdata")
+    console.log(userData.favorites)
+  })
 
   const paintUsers = () => {
     return users.map(
