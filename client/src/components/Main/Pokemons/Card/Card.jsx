@@ -16,7 +16,7 @@ function Card () {
   
   const [ message, setMessage ] = useState(null);
   const [ values, setValues ] = useState({
-    id: null,
+    id: "",
     base_experience: "",
     height: "",
     name: "",
@@ -67,12 +67,20 @@ function Card () {
 
   const handleCarrito = () => {}
   const handleFavoritos = () => {
-    console.log(typeof(id))
+    /* console.log(typeof(id))
     console.log(typeof(userData.favorites[1]))
     console.log(userData.favorites)
     console.log(id)
     console.log(typeof(id))
-    console.log(userData.favorites.includes(toString(id)))
+    console.log(userData.favorites.includes(toString(id))) */
+    console.log(id)
+    console.log(typeof(id))
+    console.log(userData)
+    let values = { ...userData, id }
+    axios.put(`favorites`, values)
+        .then((response) => console.log(response))
+        .catch((error) => console.error(error))
+    //setId(id)
   }
 
   return (

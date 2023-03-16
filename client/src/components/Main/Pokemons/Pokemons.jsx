@@ -17,7 +17,7 @@ function Pokemons (props) {
   const [ pokemon, setPokemon ] = useState(null);
   const [ id, setId ] = useState(null)
 
-  console.log(props)
+  //console.log(props)
 
   useEffect(() => {
     //console.log(props)
@@ -54,8 +54,11 @@ function Pokemons (props) {
     console.log(typeof(id))
     console.log(userData)
     let values = { ...userData, id }
+    console.log(values)
     axios.put(`favorites`, values)
         .then((response) => console.log(response))
+        .catch((error) => console.error(error))
+    setId(null)
   }
   
   
